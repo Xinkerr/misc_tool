@@ -6,6 +6,7 @@
  **/
  
 #include <stdint.h>
+#include <stdio.h>
 #include "misc.h"
 
 #define ASCII_A_BASE            ('A' - 0x0a)
@@ -49,7 +50,7 @@ int mc_itoa(uint8_t* src, char* dest, uint16_t len)
  * @param[in]   n: 数值
  * @return 转换后的数值
  */
-uint16_t htons(uint16_t n)
+uint16_t mc_htons(uint16_t n)
 {
   return ((n & 0xff) << 8) | ((n & 0xff00) >> 8);
 }
@@ -59,7 +60,7 @@ uint16_t htons(uint16_t n)
  * @param[in]   n: 数值
  * @return 转换后的数值
  */
-uint32_t htoni(uint32_t source)  
+uint32_t mc_htoni(uint32_t source)  
 {  
     return 0
     | ((source & 0x000000ff) << 24)
@@ -73,7 +74,7 @@ uint32_t htoni(uint32_t source)
  * @param[in]   str: HEX字符串
  * @return 转换后的数值
  */
-uint8_t strhex(const char* str)
+uint8_t mc_strhex(const char* str)
 {
 	uint8_t ascii_val = *str;
 	uint8_t hex_val = 0;
@@ -95,7 +96,7 @@ uint8_t strhex(const char* str)
 	{
 		hex_val |=  0x0f & (ascii_val - 'a' + 10);
 	}
-    else else if(ascii_val >= 'A' && ascii_val <= 'F')
+    else if(ascii_val >= 'A' && ascii_val <= 'F')
     {
         hex_val |=  0x0f & (ascii_val - 'A' + 10);
     }
@@ -113,13 +114,13 @@ uint8_t strhex(const char* str)
  * @param[in]   len: 字符串长度
  * @return 转换后的数值
  */
-void strhexs(uint8_t* dest_hex, const char* str, size_t len)
+void mc_strhexs(uint8_t* dest_hex, const char* str, size_t len)
 {
 	size_t i, hex_len;
 	hex_len = len / 2;
 	for(i = 0; i < hex_len; i++)
 	{
-		*dest_hex = strhex(str);
+		*dest_hex = mc_strhex(str);
 		str += 2;
 		dest_hex++;
 	}

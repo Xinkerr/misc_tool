@@ -25,4 +25,20 @@ uint16_t htons(uint16_t n);
  */
 uint32_t htoni(uint32_t source);
 
+/**
+ * @brief 单个HEX字符转HEX数值格式
+ * @param[in]   str: HEX字符串
+ * @return 转换后的数值
+ */
+uint8_t strhex(const char* str);
+
+/**
+ * @brief HEX字符串转HEX数值格式
+ * @param[in]   dest_hex: 存放hex数值格式的数组地址
+ * @param[in]   str: HEX字符串
+ * @param[in]   len: 字符串长度
+ * @return 转换后的数值
+ */
+void strhexs(uint8_t* dest_hex, const char* str, size_t len);
+
 #endif

@@ -1,3 +1,10 @@
+
+/**
+ * GITHUB: https://github.com/Xinkerr/misc_tool
+ * LICENSE: Apache-2.0
+ * VERSION: v1.1 
+ **/
+ 
 #include <stdint.h>
 #include "misc.h"
 
@@ -59,4 +66,61 @@ uint32_t htoni(uint32_t source)
     | ((source & 0x0000ff00) << 8)
     | ((source & 0x00ff0000) >> 8)
     | ((source & 0xff000000) >> 24);  
+}
+
+/**
+ * @brief 单个HEX字符转HEX数值格式
+ * @param[in]   str: HEX字符串
+ * @return 转换后的数值
+ */
+uint8_t strhex(const char* str)
+{
+	uint8_t ascii_val = *str;
+	uint8_t hex_val = 0;
+	if(ascii_val >= 'a' && ascii_val <= 'f')
+	{
+		hex_val =  ascii_val - 'a' + 10;
+	}
+    else if(ascii_val >= 'A' && ascii_val <= 'F')
+	{
+		hex_val =  ascii_val - 'A' + 10;
+	}
+	else
+	{
+		hex_val = ascii_val - '0';
+	}
+	hex_val <<= 4;
+	ascii_val = *(str+1);
+	if(ascii_val >= 'a' && ascii_val <= 'f')
+	{
+		hex_val |=  0x0f & (ascii_val - 'a' + 10);
+	}
+    else else if(ascii_val >= 'A' && ascii_val <= 'F')
+    {
+        hex_val |=  0x0f & (ascii_val - 'A' + 10);
+    }
+	else
+	{
+		hex_val = 0x0f & (ascii_val - '0');
+	}
+	return hex_val;
+}
+
+/**
+ * @brief HEX字符串转HEX数值格式
+ * @param[in]   dest_hex: 存放hex数值格式的数组地址
+ * @param[in]   str: HEX字符串
+ * @param[in]   len: 字符串长度
+ * @return 转换后的数值
+ */
+void strhexs(uint8_t* dest_hex, const char* str, size_t len)
+{
+	size_t i, hex_len;
+	hex_len = len / 2;
+	for(i = 0; i < hex_len; i++)
+	{
+		*dest_hex = strhex(str);
+		str += 2;
+		dest_hex++;
+	}
 }
